@@ -202,3 +202,35 @@ DynamicAdapt.prototype.arraySort = function (arr) {
 
 const daApaptive = new DynamicAdapt("max");
 daApaptive.init();
+// Плавная прокрутка при клике
+const menuLinks = document.querySelectorAll('.header__menu-link[data-goto]');
+if (menuLinks.length > 0) {
+	menuLinks.forEach(menuLink => {
+		menuLink.addEventListener("click", onMenuLinkClick);
+	});
+	function onMenuLinkClick(e) {
+		// Получаем объект на котороый будем кликать
+		const menuLink = e.target;
+		// Проверяем заполненность data-атрибута (есть в нём что либо или нет). Проверяем существует ли объект на который мы ссылаемся
+		if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)) {
+			// Получаем найденный объект
+			const gotoBlock = document.querySelector(menuLink.dataset.goto);
+			// Получаем местонахождение в пикселях и вычетаем высоту хедера
+			const gotoBlockValue = gotoBlock.getBoundingClientRect().top + pageYOffset - document.querySelector('header').offsetHeight;
+
+			// Проверяем: если есть у бургера класс _active, то при клике на ссылку с плавным скролом будет закрываться меню и осуществляться переход
+			if (menuBurger.classList.contains('.active')){
+				document.body.classList.remove('.lock');
+				menuBurger.classList.remove('.active');
+				menuBody.classList.remove('.active');
+			}
+
+			// Скролл
+			window.scrollTo({
+				top: gotoBlockValue,
+				behavior: "smooth"
+			});
+			e.preventDefault();
+		}
+	}
+}

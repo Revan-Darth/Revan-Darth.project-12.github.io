@@ -471,7 +471,7 @@ body._pc{
 		color: #fff;
 		&__body {
 			display: grid;
-			grid-template-columns: 2fr 1fr 2fr;
+			grid-template-columns: 2fr 2fr 2fr;
 		}
 		&__item {
 			&:first-child{
@@ -553,7 +553,7 @@ body._pc{
 		&__social-link {}
 		&__bottom{
 			text-align: center;
-			padding: 15px 0 10px;
+			padding: 15px 15px 10px;
 			font-size: rem(18);
 			line-height: em(22);
 		}
